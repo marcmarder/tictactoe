@@ -30,14 +30,12 @@ class InGameState implements GameState {
     int pointHit = 0;
     for (final iter in List<int>.generate(this.game.wrapLineAt, (i) => i + 1)) {
       final i = iter - 1;
-      print("Checking " + i.toString());
       Point point = this.game.grid.firstWhere(
           (element) =>
               element.x == i && element.y == i && element.player != null,
           orElse: () => null);
-      print("Point: " + point.toString());
       if (point == null) {
-        return null;
+        break;
       }
       if (hitPlayer == null) {
         hitPlayer = point.player;
@@ -45,12 +43,42 @@ class InGameState implements GameState {
       if (point.player == hitPlayer) {
         pointHit++;
       } else {
-        return null;
+        break;
       }
       if (pointHit == this.game.wrapLineAt) {
         return hitPlayer;
       }
     }
+
+    pointHit = 0;
+    hitPlayer = null;
+
+    for (final iter in List<int>.generate(this.game.wrapLineAt, (i) => i + 1)) {
+      print("iter " + iter.toString());
+      final newx = this.game.wrapLineAt - iter;
+      final newy = iter - 1;
+      print("x" + newx.toString());
+      print("y" + newy.toString());
+      Point point = this.game.grid.firstWhere(
+          (element) =>
+              element.x == newx && element.y == newy && element.player != null,
+          orElse: () => null);
+      if (point == null) {
+        break;
+      }
+      if (hitPlayer == null) {
+        hitPlayer = point.player;
+      }
+      if (point.player == hitPlayer) {
+        pointHit++;
+      } else {
+        break;
+      }
+      if (pointHit == this.game.wrapLineAt) {
+        return hitPlayer;
+      }
+    }
+
     return null;
   }
 
