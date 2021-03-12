@@ -19,7 +19,7 @@ class InGameState implements GameState {
 
     Timer(Duration(seconds: 5), () {
       if (this.game.currentState == NotStartedState(this.game)) {
-        this.restart();
+        this.game.currentState.restart();
       }
     });
   }
@@ -29,9 +29,13 @@ class InGameState implements GameState {
     Player hitPlayer;
     int pointHit = 0;
     for (final iter in List<int>.generate(this.game.wrapLineAt, (i) => i + 1)) {
+      final i = iter - 1;
+      print("Checking " + i.toString());
       Point point = this.game.grid.firstWhere(
-          (element) => element.x == iter && element.y == iter,
+          (element) =>
+              element.x == i && element.y == i && element.player != null,
           orElse: () => null);
+      print("Point: " + point.toString());
       if (point == null) {
         return null;
       }

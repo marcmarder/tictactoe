@@ -35,6 +35,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             return StreamBuilder<void>(
                                 stream: point.changeEmitter,
                                 builder: (context, snapshot) {
-
                                   if (point.player == null) {
                                     return Container(
                                       child: GridTile(
@@ -89,8 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     color: Color(0xFFFF000000)),
                                               ),
                                             ),
-                                            // height: 10,
-                                            // width: 10,
+                                            child: Center(
+                                              child: Text("x: " +
+                                                  point.x.toString() +
+                                                  " y: " +
+                                                  point.y.toString()),
+                                            ),
                                           ),
                                         ),
                                         color: Colors.white,
@@ -111,12 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Text(
-                          this.game.winner.displayName + " hat Gewonnen!",
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      )
+                      Text(
+                        this.game.winner.displayName + " hat Gewonnen!",
+                        style: TextStyle(fontSize: 40),
+                      ),
                     ],
                   ),
                 );
