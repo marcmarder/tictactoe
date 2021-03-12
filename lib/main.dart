@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tictactoe/models/game.dart';
 import 'package:tictactoe/models/point.dart';
 
@@ -27,6 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Context game;
+  TextEditingController gridEditingController = TextEditingController();
   @override
   void initState() {
     this.game = Context();
@@ -124,6 +126,29 @@ class _MyHomePageState extends State<MyHomePage> {
                                   return point.player.getWidget();
                                 });
                           }).toList()),
+                    ),
+                    TextField(
+                      controller: gridEditingController,
+                      decoration: InputDecoration(labelText: "Gridsize"),
+                      onSubmitted: (val) {
+                        if (val.length == 0) {
+                          return;
+                        }
+                        try {
+                          final newInt = int.parse(val);
+                          if (newInt > 20) {
+                            return;
+                          }
+                          setState(() {
+                            this.game.wrapLineAt = newInt;
+                            this.game.currentState.restart();
+                          });
+                        } catch (e) {}
+                      },
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                     ),
                   ],
                 );
