@@ -13,7 +13,7 @@ class Context implements ChangeEmitter {
   Player o = Player(Char.o, Colors.pink);
   Player currentPlayer;
   int wrapLineAt = 3; // 3
-
+  bool draw = false;
   int get totalGridSize {
     return wrapLineAt * wrapLineAt;
   }
@@ -29,6 +29,7 @@ class Context implements ChangeEmitter {
     this.currentPlayer = this.x;
     this.winner = null;
     this.grid = [];
+    this.draw = false;
   }
 
   @override

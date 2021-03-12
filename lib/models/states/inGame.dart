@@ -13,8 +13,14 @@ class InGameState implements GameState {
   InGameState(this.game);
 
   void setWinner(Player winner) {
+    if (winner == null) {
+      this.game.winner = null;
+      this.game.draw = true;
+      this.game.changeEmitter.add(null);
+      return;
+    }
     this.game.winner = winner;
-    print(winner.displayName + "hat gewonnen");
+    print(winner.displayName + " hat gewonnen");
     this.game.changeEmitter.add(null);
 
     Timer(Duration(seconds: 5), () {
@@ -127,6 +133,20 @@ class InGameState implements GameState {
       this.setWinner(horizontalResult);
       return;
     }
+
+    if (checkdraw()) {
+      this.setWinner(null);
+      return;
+    }
+  }
+
+  bool checkdraw() {
+    final setPoints =
+        this.game.grid.where((p) => p.player != null).toList().length;
+    if (setPoints == this.game.totalGridSize) {
+      return true;
+    }
+    return false;
   }
 
   @override

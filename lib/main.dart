@@ -50,6 +50,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: StreamBuilder<Object>(
             stream: this.game.changeEmitter,
             builder: (context, snapshot) {
+              if (this.game.draw) {
+                return Container(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Unentschieden!",
+                        style: TextStyle(fontSize: 40),
+                      ),
+                    ],
+                  ),
+                );
+              }
               if (this.game.winner == null) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
