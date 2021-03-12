@@ -60,11 +60,8 @@ class InGameState implements GameState {
     hitPlayer = null;
 
     for (final iter in List<int>.generate(this.game.wrapLineAt, (i) => i + 1)) {
-      print("iter " + iter.toString());
       final newx = this.game.wrapLineAt - iter;
       final newy = iter - 1;
-      print("x" + newx.toString());
-      print("y" + newy.toString());
       Point point = this.game.grid.firstWhere(
           (element) =>
               element.x == newx && element.y == newy && element.player != null,
