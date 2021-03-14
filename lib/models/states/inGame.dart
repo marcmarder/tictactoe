@@ -55,7 +55,7 @@ class InGameState implements GameState {
         return hitPlayer;
       }
     }
-
+    // oben rechts --> unten links
     pointHit = 0;
     hitPlayer = null;
 
@@ -87,6 +87,7 @@ class InGameState implements GameState {
 
   Player checkHorizontal() {
     bool checkOcccurence(Point point, Player player) {
+      // check Vertical
       final occurenceX = this
           .game
           .grid
@@ -96,6 +97,7 @@ class InGameState implements GameState {
       if (occurenceX == this.game.wrapLineAt) {
         return true;
       }
+      // check Diagonal
       final occurenceY = this
           .game
           .grid

@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    this.gridEditingController.dispose();
     super.dispose();
   }
 
@@ -49,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("TicTacToe"),
       ),
-      body: Center(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
         child: StreamBuilder<Object>(
             stream: this.game.changeEmitter,
             builder: (context, snapshot) {
@@ -75,10 +77,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Expanded(
                       child: GridView.count(
                           crossAxisCount: this.game.wrapLineAt,
-                          childAspectRatio: 1.0,
-                          padding: const EdgeInsets.all(4.0),
-                          mainAxisSpacing: 4.0,
-                          crossAxisSpacing: 4.0,
+                          childAspectRatio: 1,
+                          mainAxisSpacing: 1.0,
+                          crossAxisSpacing: 1.0,
                           children:
                               <Point>[...this.game.grid].map((Point point) {
                             return StreamBuilder<void>(
@@ -96,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .makeMove(point);
                                           },
                                           child: Container(
-                                            decoration: const BoxDecoration(
+                                            decoration: BoxDecoration(
                                               border: Border(
                                                 top: BorderSide(
                                                     width: 1.0,
@@ -120,7 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ),
                                           ),
                                         ),
-                                        color: Colors.white,
                                       )),
                                     );
                                   }
