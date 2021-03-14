@@ -32,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     this.game = Context();
+    this.gridEditingController.text = this.game.wrapLineAt.toString();
     this.game.currentState.start();
     super.initState();
   }
