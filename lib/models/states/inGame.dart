@@ -36,10 +36,9 @@ class InGameState implements GameState {
     int pointHit = 0;
     for (final iter in List<int>.generate(this.game.wrapLineAt, (i) => i + 1)) {
       final i = iter - 1;
-      Point point = this.game.grid.firstWhere(
-          (element) =>
-              element.x == i && element.y == i && element.player != null,
-          orElse: () => null);
+      Point point = this.game.grid.firstWhere((element) {
+        return element.x == i && element.y == i && element.player != null;
+      }, orElse: () => null);
       if (point == null) {
         break;
       }
@@ -62,10 +61,9 @@ class InGameState implements GameState {
     for (final iter in List<int>.generate(this.game.wrapLineAt, (i) => i + 1)) {
       final newx = this.game.wrapLineAt - iter;
       final newy = iter - 1;
-      Point point = this.game.grid.firstWhere(
-          (element) =>
-              element.x == newx && element.y == newy && element.player != null,
-          orElse: () => null);
+      Point point = this.game.grid.firstWhere((element) {
+        return element.x == newx && element.y == newy && element.player != null;
+      }, orElse: () => null);
       if (point == null) {
         break;
       }
@@ -91,7 +89,9 @@ class InGameState implements GameState {
       final occurenceX = this
           .game
           .grid
-          .where((p) => point.x == p.x && p.player == player)
+          .where((p) {
+            return point.x == p.x && p.player == player;
+          })
           .toList()
           .length;
       if (occurenceX == this.game.wrapLineAt) {
@@ -101,7 +101,9 @@ class InGameState implements GameState {
       final occurenceY = this
           .game
           .grid
-          .where((p) => point.y == p.y && p.player == player)
+          .where((p) {
+            return point.y == p.y && p.player == player;
+          })
           .toList()
           .length;
       if (occurenceY == (this.game.totalGridSize / this.game.wrapLineAt)) {

@@ -86,43 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 stream: point.changeEmitter,
                                 builder: (context, snapshot) {
                                   if (point.player == null) {
-                                    return Container(
-                                      child: GridTile(
-                                          child: Material(
-                                        child: InkWell(
-                                          onTap: () {
-                                            this
-                                                .game
-                                                .currentState
-                                                .makeMove(point);
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border(
-                                                top: BorderSide(
-                                                    width: 1.0,
-                                                    color: Color(0xFFFFFFFFFF)),
-                                                left: BorderSide(
-                                                    width: 1.0,
-                                                    color: Color(0xFFFFFFFFFF)),
-                                                right: BorderSide(
-                                                    width: 1.0,
-                                                    color: Color(0xFFFF000000)),
-                                                bottom: BorderSide(
-                                                    width: 1.0,
-                                                    color: Color(0xFFFF000000)),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text("x: " +
-                                                  point.x.toString() +
-                                                  " y: " +
-                                                  point.y.toString()),
-                                            ),
-                                          ),
-                                        ),
-                                      )),
-                                    );
+                                    return point.getWidget(() => {
+                                          this.game.currentState.makeMove(point)
+                                        });
                                   }
                                   return point.player.getWidget();
                                 });
